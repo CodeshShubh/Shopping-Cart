@@ -145,7 +145,7 @@ main-content section title {
 main-content .items {
   display: flex;
   width: auto;
-  overflow-x: scroll;
+  overflow-x: scroll !important;
   padding: 1rem 0;
   gap: 1rem;
 }
@@ -157,6 +157,7 @@ main-content .items .item {
 
 main-content .items .item img {
   max-width: 100%;
+  min-height: 27rem;
 }
 
 main-content .items .item .row {
