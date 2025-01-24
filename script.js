@@ -51,14 +51,13 @@ function signUp(e){
             lname: lname.value,
             email: email.value,
             password: password.value,
-            confirm_password: confirm_password.value
+            createAt: new Date(),
         }
         users.push(userObj);
         
     }
 
     localStorage.setItem('user', JSON.stringify(users));
-    error.textContent = "";
     error.style.color = 'white';
             fname.value = ''
             lname.value = ''
