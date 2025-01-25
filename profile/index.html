@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
   <head>
     <meta charset="utf-8" />
@@ -10,15 +6,38 @@
     <title>Profile</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="#">upgrade your browser</a> to improve your experience.
-      </p>
-    <![endif]-->
+    <nav>
+      <h1><a href="./index.html">MeShop.</a></h1>
+      <ul>
+        <li><a href="#Home">Home</a></li>
+        <li><a href="../shop/index.html">Products</a></li>
+        <li><a href="../cart/index.html">Cart</a></li>
+      </ul>
+    </nav>
+
+    <form>
+      <h1>My Profile</h1>
+      <div class="input_filds">
+        <input type="text" placeholder="First Name" id="fname" />
+        <input type="text" placeholder="Last Name" id="lname" />
+        <button id="save_info_btn">Save Info</button>
+      </div>
+    </form>
+
+    <form>
+      <h1>Edit Password</h1>
+      <div class="input_filds">
+        <input type="password" placeholder="Old Password" id="old_password" />
+        <input type="password" placeholder="New Password" id="new_password" />
+        <input type="password" placeholder="Confirm New Password" id="confirm_new_password" />
+        <p id="error" style="color: black">Error : old password not Correct</p>
+        <button id="chang_password_btn">Change Password</button>
+        <button id="Logout">Logout</button>
+      </div>
+    </form>
 
     <script src="./script.js" async defer></script>
   </body>

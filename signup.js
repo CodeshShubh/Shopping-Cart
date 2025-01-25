@@ -56,7 +56,7 @@ function signUp(e){
         users.push(userObj);
         
     }
-
+      
     localStorage.setItem('user', JSON.stringify(users));
     error.style.color = 'white';
             fname.value = ''
@@ -64,5 +64,5 @@ function signUp(e){
             email.value = ''
             password.value = ''
             confirm_password.value = ''
-
+            window.location.href = './login.html'
 }

@@ -4,24 +4,48 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Inter;
-
+    font-family: 'Inter', sans-serif;
 }
-nav{
-    
+
+ /* navigation style */
+nav {
     display: flex;
-    padding: 1rem;
+    padding: 1.6rem;
     justify-content: space-between;
     align-items: center;
     background-color: black;
-        color: #FFFFFFB2;
-    ul{
-        display: flex;
-        gap: 1.2rem;
-        list-style: none;
-        
-    }
-}
+  }
+  
+  nav h1 a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    cursor: pointer;
+  }
+  nav h1 a:hover {
+    color: yellow;
+  }
+  
+  nav ul {
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+    letter-spacing: 1px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    cursor: pointer;
+  }
+  
+  nav ul li a:hover {
+    color: yellow;
+  
+  }
+  
+ 
 
 form{
     /* border: 1px solid red; */
