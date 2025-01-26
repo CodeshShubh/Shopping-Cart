@@ -2,7 +2,7 @@
 
 let currUser = localStorage.getItem('currUser');
 
-if(currUser){
+// if(currUser){
   let colors =['red', 'black', 'blue', 'green'];
   let sizes = ['XS', 'SM', 'MD', 'LG', 'XL'];
 
@@ -28,9 +28,9 @@ if(currUser){
        localStorage.setItem('newProducts', JSON.stringify(newProducts));
     }
   });
-}else{
-    window.location.href = "../login.html"
-}
+// }else{
+//     window.location.href = "../login.html"
+// }
 
 
 

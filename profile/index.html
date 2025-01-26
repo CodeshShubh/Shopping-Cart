@@ -16,14 +16,19 @@
         <li><a href="../shop/index.html">Products</a></li>
         <li><a href="../cart/index.html">Cart</a></li>
       </ul>
-    </nav>
+    </nav> 
 
     <form>
-      <h1>My Profile</h1>
+      <div class="heading_and_logoutbtn">
+        <h1>My Profile</h1>
+      <button id="Logout">Logout</button>
+      </div>
       <div class="input_filds">
         <input type="text" placeholder="First Name" id="fname" />
         <input type="text" placeholder="Last Name" id="lname" />
         <button id="save_info_btn">Save Info</button>
+        <p id="updated_message" style="color: white">Error : old password not Correct</p>
+
       </div>
     </form>
 
@@ -33,11 +38,11 @@
         <input type="password" placeholder="Old Password" id="old_password" />
         <input type="password" placeholder="New Password" id="new_password" />
         <input type="password" placeholder="Confirm New Password" id="confirm_new_password" />
-        <p id="error" style="color: black">Error : old password not Correct</p>
         <button id="chang_password_btn">Change Password</button>
-        <button id="Logout">Logout</button>
+        <p id="error" style="color: white">Error : old password not Correct</p>
+        
       </div>
-    </form>
+    </form> 
 
     <script src="./script.js" async defer></script>
   </body>

@@ -87,3 +87,22 @@ form{
       }
 
 }
+
+.heading_and_logoutbtn{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  button{
+    border: none;
+    background-color: #000000;
+    max-width: 9rem;
+    padding: 0.8rem 1rem;
+    color: white;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  button:hover{
+    background-color: #181717ec;
+  }
+}
