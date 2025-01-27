@@ -1,8 +1,9 @@
 
 
 let currUser = localStorage.getItem('currUser');
+let globalProductsArr = [];
 
-// if(currUser){
+if(currUser){
   let colors =['red', 'black', 'blue', 'green'];
   let sizes = ['XS', 'SM', 'MD', 'LG', 'XL'];
 
@@ -10,16 +11,12 @@ let currUser = localStorage.getItem('currUser');
    return  response.json()
   }).then((data)=>{
     if(localStorage.getItem('newProducts')){
-       let products = JSON.parse(localStorage.getItem('newProducts'))
-       console.log(products);
-       renderManProducts(products);
-       renderWomensProducts(products);
-       renderJeweleryProducts(products);
-       renderElectronicsProducts(products)
+       let productsArr = JSON.parse(localStorage.getItem('newProducts'))
+       console.log(productsArr);
+       globalProductsArr = productsArr;
+       originalArrRender(globalProductsArr);
     }else{
-
       // adding elememts existing json object using map
-
       let newProducts = data.map((items)=>{
         items.colors = colors.slice(Math.floor(Math.random()*4))
         items.sizes = sizes.slice(Math.floor(Math.random()*4));
@@ -28,10 +25,18 @@ let currUser = localStorage.getItem('currUser');
        localStorage.setItem('newProducts', JSON.stringify(newProducts));
     }
   });
-// }else{
-//     window.location.href = "../login.html"
-// }
+}else{
+    window.location.href = "../login.html"
+}
 
+
+       // using this function used to render filter data if user has some query during input 
+       function originalArrRender(updatedArr){
+        renderManProducts(updatedArr);
+        renderWomensProducts(updatedArr);
+        renderJeweleryProducts(updatedArr);
+        renderElectronicsProducts(updatedArr);
+        }
 
 
 
@@ -182,5 +187,18 @@ function renderElectronicsProducts(products){
 }
 
 
+// Search products not using local storage data using dom manupulation
+let search = document.getElementById('search_products')
+search.addEventListener('input', searchProuctsByInput)
+
+function searchProuctsByInput(){
+// console.log('search value',search.value);
+let searchValue = search.value.toLowerCase().trim();
+ let searchFilterArr =  globalProductsArr.filter((item)=>
+       item.category.toLowerCase().includes(searchValue) || item.title.toLowerCase().includes(searchValue)
+
+  )
+  originalArrRender(searchFilterArr);
+}
 
 
