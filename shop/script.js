@@ -12,7 +12,7 @@ if(currUser){
   }).then((data)=>{
     if(localStorage.getItem('newProducts')){
        let productsArr = JSON.parse(localStorage.getItem('newProducts'))
-       console.log(productsArr);
+      //  console.log(productsArr);
        globalProductsArr = productsArr;
        originalArrRender(globalProductsArr);
     }else{
@@ -36,6 +36,7 @@ if(currUser){
         renderWomensProducts(updatedArr);
         renderJeweleryProducts(updatedArr);
         renderElectronicsProducts(updatedArr);
+        addToCart();
         }
 
 
@@ -303,15 +304,16 @@ function workingFunctionColor(){
       return selectedColorsIds.some((ids)=> colors.colors.includes(ids))
     })
     originalArrRender(selctedColorsItemsArr);
-    console.log(selctedColorsItemsArr)
+    // console.log(selctedColorsItemsArr)
 }
 
 
 
 
+
+
+
 // now filter according to size
-
-
 let sizeInput = document.querySelectorAll('input[name=size]');
  sizeInput.forEach((items)=>{
     items.addEventListener('change', (e)=>{
@@ -336,11 +338,13 @@ let sizeInput = document.querySelectorAll('input[name=size]');
 
 
 
+
+
+
+
  // filter by price range 
-
-
 let PriceRangeInput = document.querySelectorAll('input[name=prange]');
-console.log(PriceRangeInput);
+// console.log(PriceRangeInput);
 
 PriceRangeInput.forEach((checkbox)=>{
   checkbox.addEventListener('change', (e)=>{
@@ -354,7 +358,7 @@ PriceRangeInput.forEach((checkbox)=>{
 // here is filtering importent aspects
 function applyPriceFilter(){
     let selectedRanges = Array.from(PriceRangeInput).filter((checkbox)=>checkbox.checked).map((checkbox)=>checkbox.id);
-    console.log(selectedRanges);
+    // console.log(selectedRanges);
 
     let filterPriceRangeArr = globalProductsArr.filter((product)=>{
       let price = product.price;
@@ -366,6 +370,44 @@ function applyPriceFilter(){
     });
     originalArrRender(filterPriceRangeArr)
 }
+
+
+
+
+
+
+
+// now workign on card functionality
+
+
+
+
+
+function addToCart(){
+  let addCartBtn = document.querySelectorAll('main-content section div button');
+// console.log(addCartBtn);
+// let addToCartArr = [];
+addCartBtn.forEach((btn)=>{
+    btn.addEventListener('click',(e)=>{
+      let cartItems = JSON.parse(localStorage.getItem('CartItems')) || [];
+      const productId = parseInt(e.target.id);
+      let clickProductArr =  globalProductsArr.find((item)=> productId == item.id)
+        // console.log(clickProductArr)
+
+      if(clickProductArr){
+        cartItems.push(clickProductArr);
+        localStorage.setItem('CartItems', JSON.stringify(cartItems))
+      }
+      
+      // console.log(addToCartArr);
+      
+    })
+    
+})
+
+}
+
+
 
 
 
