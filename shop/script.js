@@ -5,7 +5,7 @@ let globalProductsArr = [];
 
 if(currUser){
   let colors =['red', 'black', 'blue', 'green'];
-  let sizes = ['XS', 'SM', 'MD', 'LG', 'XL'];
+  let sizes = ['S', 'M', 'L', 'LG', 'XL'];
 
   const products = fetch('https://fakestoreapi.com/products').then((response)=>{
    return  response.json()
@@ -56,14 +56,15 @@ function renderManProducts(products){
               <div class="info">
                 <div class="row">
                   <div class="price">$${item.price}</div>
-                  <div class="sized">${item.sizes[0] || 'S'}, ${item.sizes[1] || "M" }, ${item.sizes[2] || "L"}</div>
+                    <div class="sized">${item.sizes[0] || '_'}, ${item.sizes[1] || '_'}, ${item.sizes[2] || '_'}, ${item.sizes[3] || '_'}</div>
                 </div>
                 <div class="colors">
                   Colors:
                   <div class="row">
                     <div class="circle" style="background-color: ${item.colors[0]}"></div>
-                    <div class="circle" style="background-color: ${item.colors[1] || "pink"} "></div>
-                    <div class="circle" style="background-color: ${item.colors[2] || "yellow"}"></div>
+                    <div class="circle" style="background-color: ${item.colors[1]} "></div>
+                    <div class="circle" style="background-color: ${item.colors[2]}"></div>
+                    <div class="circle" style="background-color: ${item.colors[3]}"></div>
                   </div>
                 </div>
                 <div class="row">Rating: ${item.rating.rate}</div>
@@ -92,14 +93,15 @@ function renderWomensProducts(products){
                 <div class="info">
                   <div class="row">
                     <div class="price">$${item.price}</div>
-                    <div class="sized">${item.sizes[0] || 'S'}, ${item.sizes[1] || "M" }, ${item.sizes[2] || "L"}</div>
+                    <div class="sized">${item.sizes[0] || '_'}, ${item.sizes[1] || '_'}, ${item.sizes[2] || '_'}, ${item.sizes[3] || '_'}</div>
                   </div>
                   <div class="colors">
                     Colors:
                     <div class="row">
                       <div class="circle" style="background-color: ${item.colors[0]}"></div>
-                      <div class="circle" style="background-color: ${item.colors[1] || "pink"} "></div>
-                      <div class="circle" style="background-color: ${item.colors[2] || "yellow"}"></div>
+                    <div class="circle" style="background-color: ${item.colors[1]} "></div>
+                    <div class="circle" style="background-color: ${item.colors[2]}"></div>
+                    <div class="circle" style="background-color: ${item.colors[3]}"></div>
                     </div>
                   </div>
                   <div class="row">Rating: ${item.rating.rate}</div>
@@ -130,14 +132,15 @@ function renderJeweleryProducts(products){
                 <div class="info">
                   <div class="row">
                     <div class="price">$${item.price}</div>
-                    <div class="sized">${item.sizes[0] || 'S'}, ${item.sizes[1] || "M" }, ${item.sizes[2] || "L"}</div>
+                    <div class="sized">${item.sizes[0] || '_'}, ${item.sizes[1] || '_'}, ${item.sizes[2] || '_'}, ${item.sizes[3] || '_'}</div>
                   </div>
                   <div class="colors">
                     Colors:
                     <div class="row">
                       <div class="circle" style="background-color: ${item.colors[0]}"></div>
-                      <div class="circle" style="background-color: ${item.colors[1] || "pink"} "></div>
-                      <div class="circle" style="background-color: ${item.colors[2] || "yellow"}"></div>
+                    <div class="circle" style="background-color: ${item.colors[1]} "></div>
+                    <div class="circle" style="background-color: ${item.colors[2]}"></div>
+                    <div class="circle" style="background-color: ${item.colors[3]}"></div>
                     </div>
                   </div>
                   <div class="row">Rating: ${item.rating.rate}</div>
@@ -167,14 +170,15 @@ function renderElectronicsProducts(products){
                 <div class="info">
                   <div class="row">
                     <div class="price">$${item.price}</div>
-                    <div class="sized">${item.sizes[0] || 'S'}, ${item.sizes[1] || "M" }, ${item.sizes[2] || "L"}</div>
+                    <div class="sized">${item.sizes[0] || '_'}, ${item.sizes[1] || '_'}, ${item.sizes[2] || '_'}, ${item.sizes[3] || '_'}</div>
                   </div>
                   <div class="colors">
                     Colors:
                     <div class="row">
                       <div class="circle" style="background-color: ${item.colors[0]}"></div>
-                      <div class="circle" style="background-color: ${item.colors[1] || "pink"} "></div>
-                      <div class="circle" style="background-color: ${item.colors[2] || "yellow"}"></div>
+                    <div class="circle" style="background-color: ${item.colors[1]} "></div>
+                    <div class="circle" style="background-color: ${item.colors[2]}"></div>
+                    <div class="circle" style="background-color: ${item.colors[3]}"></div>
                     </div>
                   </div>
                   <div class="row">Rating: ${item.rating.rate}</div>
@@ -182,7 +186,9 @@ function renderElectronicsProducts(products){
                 <button id="${item.id}">Add to Cart</button>
               </div>
            `
+         
       })
+
 
 }
 
@@ -200,5 +206,223 @@ let searchValue = search.value.toLowerCase().trim();
   )
   originalArrRender(searchFilterArr);
 }
+
+
+
+
+
+// filter when user click on button on perticuler section
+
+let filterDiv = document.querySelectorAll('.filter');
+
+filterDiv.forEach((divs)=>{
+    divs.addEventListener('click', ()=>{
+      
+      // for removing all divs
+      filterDiv.forEach((Alldivs)=>{
+        Alldivs.classList.remove('active');
+      })
+      // for adding divs when user click on button
+      divs.classList.add('active')
+
+    // console.log(divs.textContent.toLocaleLowerCase())
+
+    let textByBtn = divs.textContent.toLocaleLowerCase()
+
+    switch(textByBtn){
+      case 'mens': 
+      let mensArr = globalProductsArr.filter((items)=>items.category ===`men's clothing`)
+      // console.log(mensArr)
+      originalArrRender(mensArr);
+      break;
+      case 'womens': 
+      let womensArr = globalProductsArr.filter((items)=>items.category ===`women's clothing`)
+      originalArrRender(womensArr);
+      break;
+      case 'jewellery': 
+      let jewelleryArr = globalProductsArr.filter((items)=>items.category ===`jewelery`)
+      originalArrRender(jewelleryArr);
+      break;
+      case 'electronics': 
+      let electronicsArr = globalProductsArr.filter((items)=>items.category ===`electronics`)
+      originalArrRender(electronicsArr);
+      break;
+      case 'all':
+        originalArrRender(globalProductsArr);
+        break;
+        default:
+          break
+    }
+       
+  })
+})
+
+
+
+
+
+
+
+// now filter by rating
+
+let ratingsInput = document.getElementById('range');
+
+let ratingsUpdate = document.getElementById('rating_update');
+
+ ratingsInput.addEventListener('input', ()=>{
+  let ratingsValue = ratingsInput.value
+  // console.log(ratingsInput.value);
+  ratingsUpdate.textContent = `Ratings : ${ratingsInput.value}`
+
+  let ratingFilterArr = globalProductsArr.filter((ratings)=> parseInt(ratings.rating.rate) == ratingsValue);
+  
+  originalArrRender(ratingFilterArr)
+
+ })
+
+
+
+
+
+
+
+// now filter based on color 
+
+ let colorList = document.querySelectorAll('input[name=color]');
+    
+           colorList.forEach((colorInputs)=>{
+             colorInputs.addEventListener('change', (e)=>{
+                 workingFunctionColor();
+             })
+           })
+  
+function workingFunctionColor(){
+    let selectedColorsIds = Array.from(colorList).filter((ids)=>ids.checked).map((ids)=>ids.id)
+    
+    let selctedColorsItemsArr = globalProductsArr.filter((colors)=>{
+      return selectedColorsIds.some((ids)=> colors.colors.includes(ids))
+    })
+    originalArrRender(selctedColorsItemsArr);
+    console.log(selctedColorsItemsArr)
+}
+
+
+
+
+// now filter according to size
+
+
+let sizeInput = document.querySelectorAll('input[name=size]');
+ sizeInput.forEach((items)=>{
+    items.addEventListener('change', (e)=>{
+      let selectedRangesArr = Array.from(sizeInput);
+
+      let selectedRanges =  selectedRangesArr.filter((checkbox)=>checkbox.checked).map((checkbox)=>{
+         return checkbox.id;
+      })
+      // console.log(selectedRanges);
+      // console.log('laued', globalProductsArr)
+      let SizeRangeArr = globalProductsArr.filter((product)=>{
+        return selectedRanges.some((items)=> product.sizes.includes(items));
+    
+      });
+       originalArrRender(SizeRangeArr);
+    })
+    
+ })
+
+
+
+
+
+
+ // filter by price range 
+
+
+let PriceRangeInput = document.querySelectorAll('input[name=prange]');
+console.log(PriceRangeInput);
+
+PriceRangeInput.forEach((checkbox)=>{
+  checkbox.addEventListener('change', (e)=>{
+    
+    if(checkbox.checked){
+      // console.log(e)
+      applyPriceFilter();
+    }
+  })
+})
+// here is filtering importent aspects
+function applyPriceFilter(){
+    let selectedRanges = Array.from(PriceRangeInput).filter((checkbox)=>checkbox.checked).map((checkbox)=>checkbox.id);
+    console.log(selectedRanges);
+
+    let filterPriceRangeArr = globalProductsArr.filter((product)=>{
+      let price = product.price;
+      if(selectedRanges.includes('0-25') && price>=0 && price<=25) return true;
+      if (selectedRanges.includes('25-50') && price > 25 && price <= 50) return true;
+    if (selectedRanges.includes('50-100') && price > 50 && price <= 100) return true;
+    if (selectedRanges.includes('100on') && price > 100) return true;
+    return false;
+    });
+    originalArrRender(filterPriceRangeArr)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
