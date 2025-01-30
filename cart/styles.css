@@ -100,6 +100,7 @@ nav {
         color: white;
         border: none;
         font-size: 1rem;
+        cursor: pointer;
        }
        
   }
@@ -135,6 +136,9 @@ aside{
 
   .Check_out_btn{
     padding: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     button{
          background-color: white;
          color: black;
@@ -144,5 +148,7 @@ aside{
          font-size: 1rem;
          max-width: 12rem;
          margin-bottom: 2rem;
+         cursor: pointer;
+         /* display: none; */
     }
   }

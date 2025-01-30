@@ -397,6 +397,8 @@ addCartBtn.forEach((btn)=>{
       if(clickProductArr){
         cartItems.push(clickProductArr);
         localStorage.setItem('CartItems', JSON.stringify(cartItems))
+        alert('item Added to the cart')
+        
       }
       
       // console.log(addToCartArr);

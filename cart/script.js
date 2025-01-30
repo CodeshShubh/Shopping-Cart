@@ -1,7 +1,11 @@
+// local storage for fetch data and validation condition
 let currUser = localStorage.getItem("currUser");
 let cartItems = JSON.parse(localStorage.getItem("CartItems")) ||[];
-//  console.log('updated', UpdatedCartItems)
+
+
 let cardContainer = document.querySelector(".cards_container");
+let priceList = document.querySelector(".cart_price_List");
+let payBtn = document.getElementById("rzp-button1")
 
 //   console.log(UpdatedCartItems.length)
 if (currUser) {
@@ -12,13 +16,15 @@ if (!cartItems || cartItems.length <= 0) {
     cardContainer.style.fontSize = `5rem`;
     cardContainer.style.display = `flex`;
     cardContainer.style.justifyContent = `center`;
+    payBtn.style.display = `none`;
+  
   } else {
 
+    payBtn.style.display = `block`;
 
     // rendering cards
     function renderCards() {
       cardContainer.innerHTML = ``;
-      // console.log(UpdatedCartItems);
       cartItems.forEach((element) => {
         cardContainer.innerHTML += `
         <div class="cards">
@@ -40,15 +46,12 @@ if (!cartItems || cartItems.length <= 0) {
       });
       removeCartIems();
     }
-// renderCards();
-
 
 
 
 
     // rendering price list ->
     function renderingPriceList() {
-      let priceList = document.querySelector(".cart_price_List");
       priceList.innerHTML = ``;
       cartItems.forEach((element, index) => {
         priceList.innerHTML += `
@@ -59,26 +62,24 @@ if (!cartItems || cartItems.length <= 0) {
        `;
       });
     }
-    // renderingPriceList();
 
 
 
 
     // rendering total new to update when removeItem button click
-    let priceTotal = document.querySelector(".total");
+    let sum = 0;
     function total() {
-      let sum = 0;
-      cartItems.forEach((items) => {
-        // console.log(items.price);
-        sum += items.price;
-      });
-    //   console.log(sum);
+     sum = cartItems.reduce((acc, item) => acc + item.price, 0);
+      sum = Math.round(sum * 100); 
+
+      let priceTotal = document.querySelector(".total");
       priceTotal.innerHTML = `
-     <p>Total</p>
-    <p>$ ${sum.toFixed(2)}/-</p>
-    `;
+        <p>Total</p>
+        <p>$ ${sum / 100}/-</p>
+      `;
+   
     }
-    // total();
+
 
 
 
@@ -88,28 +89,14 @@ if (!cartItems || cartItems.length <= 0) {
       let cardContainer = document.querySelectorAll(
         ".cards_container div button"
       );
-    //   console.log(cardContainer);
 
       cardContainer.forEach((btns) => {
            btns.addEventListener('click', (e)=>{
-            // console.log(e.target.id)
             const itemId = parseInt(e.target.id);
            let index = cartItems.findIndex((items)=> items.id == itemId);
-            //  console.log(index);
-
-
-        //    console.log(updatedCart)
-        //    if(updatedCart.length !== cartItems.length){
-        //     cartItems = updatedCart;
-        //     localStorage.setItem("CartItems", JSON.stringify(cartItems));
-        //     renderCards();
-        //     renderingPriceList();
-        //     total();
-
-        //    }
 
         if (index !== -1) { // Check if the item exists
-            cartItems.splice(index, 1); // Remove only that specific item
+            cartItems.splice(index, 1); 
             localStorage.setItem("CartItems", JSON.stringify(cartItems));
             renderCards();
             renderingPriceList();
@@ -119,11 +106,74 @@ if (!cartItems || cartItems.length <= 0) {
          })
       });
     }
+    
+
+
+
+
+
+// rozerpay integration 
+document.getElementById("rzp-button1").onclick = function (e) {
+  e.preventDefault();
+
+  total();
+
+  var options = {
+    key: "rzp_test_up10RMCRkzZEwm", // Enter the Key ID generated from the Dashboard
+    amount:  sum, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    currency: "INR",
+    name: "MyShop Checkout",
+    description: "This is your order", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    theme: {
+      color: "#000",
+    },
+    image:"https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg",
+     
+    handler: function (response) {
+      dispatchItems(response);
+    },
+    modal: {
+      ondismiss: function () {
+        alert("Payment cancelled");
+      },
+    },  
+  };
+
+  var rzpy1 = new Razorpay(options);
+  rzpy1.open();
+};
+
+
+//message after payment
+function dispatchItems(response){
+ // Validate payment via payment_id
+    if (response.razorpay_payment_id) { // Validate payment via payment_id
+      payBtn.style.display = `block`
+    payBtn.textContent=``
+    let a = document.createElement('a')
+    a.setAttribute('href', '../shop/index.html')
+    a.textContent=`Go to Products`
+    payBtn.appendChild(a);
+    a.style.textDecoration = `none`
+    a.style.color = `black`
+    
+    cardContainer.innerHTML = `Payment Received Successfully`;
+    cardContainer.style.color = `green`;
+    cardContainer.style.fontSize = `5rem`;
+    cardContainer.style.display = `flex`;
+    cardContainer.style.justifyContent = `center`;
+    priceList.innerHTML = `Items are shipped soon...`;
+    localStorage.removeItem('CartItems'); // Clear cart
+
+    } else {
+      alert("Payment failed or cancelled");
+
+    }
+}
+
     renderCards();
     renderingPriceList();
     total();
-    
-
 
     // end else if blcock
   }
